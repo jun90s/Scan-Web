@@ -1,0 +1,251 @@
+@charset "utf-8";
+html, body, div, a, p, header, section, nav, ul, li, input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  vertical-align: baseline;
+}
+.dark-bg {
+  background: #292826;
+}
+a {
+  color: #C3C3C3;
+  text-decoration: none;
+}
+a:hover, a:active {
+  color: #F4F3F2;
+}
+li {
+  list-style-type: none;
+}
+header, section, nav {
+  display: block;
+}
+body {
+  color: #F4F3F2;
+  background: #333;
+}
+p {
+  margin-bottom: 1rem;
+}
+input {
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+  margin-bottom: 1rem;
+}
+.container {
+  width: 1170px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 0 auto;
+}
+.row {
+  display: flex;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.col-1 {
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+  padding-top: 15px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.col-2 {
+  flex: 0 0 66.666666%;
+  max-width: 66.666666%;
+  padding-top: 15px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.col-radius {
+  border-radius: 5px;
+}
+.col-title {
+  font-size: 2em;
+}
+.sidebar > a {
+  font-size: 1.25em;
+  display: block;
+  margin-bottom: 1rem;
+}
+.sidebar .sub-title {
+  font-size: 1.25em;
+  margin-bottom: 1rem;
+}
+.sidebar input[type="text"], .sidebar input[type="range"] {
+  width: 100%;
+}
+.fix-first {
+  margin-top: 50px;
+}
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+  border: 2px solid #E24A2D;
+  color: #E24A2D;
+}
+.btn:hover, .btn:active {
+  color: #F4F3F2;
+  background: #E24A2D;
+}
+.btn-group {
+  display: inline-block;
+  width: 100%;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+.nav {
+  height: 80px;
+  min-width: 1200px;
+  line-height: 80px;
+  background: #292826;
+}
+.nav > ul > li {
+  float: right;
+}
+.nav > ul > li > a {
+  text-align: center;
+  display: inline-block;
+  padding: 0 10px;
+  margin: 0 30px;
+  font-size: 1.1em
+}
+.nav .active {
+  color: #E24A2D;
+}
+.nav .active:active, .nav .active:hover {
+  color: #E24A2D;
+}
+.nav .logo {
+  display: inline-block;
+  background: url("../images/logo.png") no-repeat;
+  background-size: contain;
+  width: 64px;
+  height: 64px;
+  margin: 8px 16px;
+}
+.home {
+  background: url("../images/home.jpg") no-repeat;
+  background-size: cover;
+}
+.home-nav {
+  background: transparent;
+  box-shadow: none;
+}
+.home-section {
+  margin: 50px 0;
+}
+.home-logo {
+  display: block;
+  background: url("../images/logo.png") no-repeat;
+  background-size: contain;
+  width: 256px;
+  height: 256px;
+  margin: 0 auto;
+}
+.home-title {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px #000;
+}
+.home-description {
+  text-align: center;
+  font-size: 1.5em;
+  text-shadow: 2px 2px 5px #000;
+}
+.home-download {
+  margin-top: 60px;
+  text-align: center;
+}
+.small-panel {
+  padding-bottom: 15px;
+}
+.small-panel #prompt {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+.small-panel input[type="text"] {
+  width: 100%;
+}
+.center {
+  text-align: center;
+}
+.hidden {
+  display: none;
+}
+#upload-progress {
+  font-size: 2em;
+  margin-bottom: 0;
+}
+#work-panel {
+  display: none;
+  margin-bottom: 1rem;
+}
+#work-panel .col-2 {
+  padding-bottom: 15px;
+}
+#canvas-container {
+  margin: 0 auto;
+}
+.corner {
+  font-size: 0.5rem;
+  position: absolute;
+  text-align: center;
+  width: 30px;
+  line-height: 26px;
+  height: 30px;
+  border-radius: 15px;
+  display: block;
+  border: 2px solid #F4F3F2;
+  box-shadow: 0 0 2px #000;
+  text-shadow: 0 0 2px #000;
+  cursor: default;
+  color: #F4F3F2;
+}
+#corner-lt {
+  margin-top: -15px;
+  margin-left: -15px;
+}
+#corner-rt {
+  margin-top: -15px;
+  margin-right: -15px;
+}
+#corner-rb {
+  margin-bottom: -15px;
+  margin-right: -15px;
+}
+#corner-lb {
+  margin-bottom: -15px;
+  margin-left: -15px;
+}
+.gallery-item {
+  padding: 15px;
+  overflow: hidden;
+}
+.gallery-item-action {
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+.gallery-item-img {
+  border-radius: 0.3rem;
+  width: 100%;
+  height: 200px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 1rem;
+}
+.gallery-item-title {
+  font-size: 1.25rem;
+}
