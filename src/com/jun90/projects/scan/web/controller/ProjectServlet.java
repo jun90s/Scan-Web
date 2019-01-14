@@ -107,6 +107,7 @@ public class ProjectServlet extends HttpServlet {
 		String apiKey = null;
 		String projectId = null;
 		String name = null;
+		String tasks = null;
 		String action = null;
 		String contrast = null, brightness = null;
 		String mirror_x = null, mirror_y = null;
@@ -129,8 +130,8 @@ public class ProjectServlet extends HttpServlet {
 						else if(fileItem.getFieldName().equalsIgnoreCase("apikey")) apiKey = fileItem.getString("utf-8");
 						else if(fileItem.getFieldName().equalsIgnoreCase("project")) projectId = fileItem.getString("utf-8");
 						else if(fileItem.getFieldName().equalsIgnoreCase("name")) name = fileItem.getString("utf-8");
+						else if(fileItem.getFieldName().equalsIgnoreCase("tasks")) tasks = fileItem.getString("utf-8");
 						else if(fileItem.getFieldName().equalsIgnoreCase("action")) action = fileItem.getString("utf-8");
-
 						else if(fileItem.getFieldName().equalsIgnoreCase("contrast")) contrast = fileItem.getString("utf-8");
 						else if(fileItem.getFieldName().equalsIgnoreCase("brightness")) brightness = fileItem.getString("utf-8");
 						else if(fileItem.getFieldName().equalsIgnoreCase("mirror_x")) mirror_x = fileItem.getString("utf-8");
@@ -164,6 +165,7 @@ public class ProjectServlet extends HttpServlet {
 			apiKey = request.getParameter("apikey");
 			projectId = request.getParameter("project");
 			name = request.getParameter("name");
+			tasks = request.getParameter("tasks");
 			action = request.getParameter("action");
 			contrast = request.getParameter("contrast");
 			brightness = request.getParameter("brightness");
@@ -217,10 +219,21 @@ public class ProjectServlet extends HttpServlet {
 			project.setCreated(new Date());
 			project.setUser(token.getUser());
 			project.setId(KeyUtils.getStringKey());
-			project.setTasks(new ImageScanner<BufferedImage>(BufferedImage.class).toJSON());
+			ImageScanner<BufferedImage> scanner;
+			if(tasks == null) {
+				scanner = new ImageScanner<BufferedImage>(BufferedImage.class);
+			} else {
+				try {
+					scanner = new ImageScanner<BufferedImage>(BufferedImage.class, tasks);
+				} catch (IllegalArgumentException e) {
+					dbUtils.closeConnection(false);
+					APIUtils.writeJSON(response, ResponseCodeUtils.getJSON(-500));
+					return;
+				}
+			}
+			project.setTasks(scanner.toJSON());
 			project.setRaw(bufferedImageToByteArray(image));
 			project.setThumbnail(bufferedImageToByteArray(makeThumbnail(image, thumbnailMaxSize)));
-			
 			try {
 				ProjectDAO.insert(connection, project);
 				dbUtils.closeConnection(true);
@@ -278,7 +291,7 @@ public class ProjectServlet extends HttpServlet {
 				if(angle != null) {
 					try {
 						int angleVal = Integer.parseInt(angle);
-						scanner.addTask(new RotatingScanTask(0.5, 0.5, angleVal));
+						scanner.addTask(new RotatingScanTask(angleVal));
 					} catch (NumberFormatException e) { }
 				}
 				BufferedImage doneImage = null;
@@ -314,7 +327,7 @@ public class ProjectServlet extends HttpServlet {
 				if(angle != null) {
 					try {
 						int angleVal = Integer.parseInt(angle);
-						scanner.addTask(new RotatingScanTask(0.5, 0.5, angleVal));
+						scanner.addTask(new RotatingScanTask(angleVal));
 					} catch (NumberFormatException e) { }
 				}
 				if(x1 != null && y1 != null && width != null & height != null) {

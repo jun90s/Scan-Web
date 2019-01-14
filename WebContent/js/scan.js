@@ -57,20 +57,11 @@ $(function () {
   $(".btn-new").click(function () {
     $("#upload-image").click();
   });
-  var update_image = function (src, do_init_corner, callback) {
+  var update_image = function (src, do_init, callback) {
     var image = new Image();
     image.src = src;
     image.onload = function () {
-      $("#canvas-container").css("width", image.width);
-      $("#canvas-container").css("height", image.height);
-      $("#canvas").attr("width", image.width);
-      $("#canvas").attr("height", image.height);
-      var init_corner = function () {
-        $("#brightness").val(0);
-        $("#contrast").val(0);
-        $("#angle").val(0);
-        $("#mirror_x").prop("checked", false);
-        $("#mirror_y").prop("checked", false);
+      $(window).resize(function () {
         $("#corner-lt").css("top", $("#canvas")[0].getBoundingClientRect().top);
         $("#corner-lt").css("left", $("#canvas")[0].getBoundingClientRect().left);
         $("#corner-rt").css("top", $("#canvas")[0].getBoundingClientRect().top);
@@ -79,8 +70,27 @@ $(function () {
         $("#corner-rb").css("left", $("#canvas")[0].getBoundingClientRect().left + image.width - 15);
         $("#corner-lb").css("top", $("#canvas")[0].getBoundingClientRect().top + image.height - 15);
         $("#corner-lb").css("left", $("#canvas")[0].getBoundingClientRect().left);
+      });
+      $("#canvas-container").css("width", image.width);
+      $("#canvas-container").css("height", image.height);
+      $("#canvas").attr("width", image.width);
+      $("#canvas").attr("height", image.height);
+      $("#corner-lt").css("top", $("#canvas")[0].getBoundingClientRect().top);
+      $("#corner-lt").css("left", $("#canvas")[0].getBoundingClientRect().left);
+      $("#corner-rt").css("top", $("#canvas")[0].getBoundingClientRect().top);
+      $("#corner-rt").css("left", $("#canvas")[0].getBoundingClientRect().left + image.width - 15);
+      $("#corner-rb").css("top", $("#canvas")[0].getBoundingClientRect().top + image.height - 15);
+      $("#corner-rb").css("left", $("#canvas")[0].getBoundingClientRect().left + image.width - 15);
+      $("#corner-lb").css("top", $("#canvas")[0].getBoundingClientRect().top + image.height - 15);
+      $("#corner-lb").css("left", $("#canvas")[0].getBoundingClientRect().left);
+      var init = function () {
+        $("#brightness").val(0);
+        $("#contrast").val(0);
+        $("#angle").val(0);
+        $("#mirror_x").prop("checked", false);
+        $("#mirror_y").prop("checked", false);
       }
-      if (do_init_corner) init_corner();
+      if (do_init) init();
       $("#work-panel .col-2").css("height", image.height + 30 + "px");
       $("#canvas")[0].getContext("2d").drawImage(image, 0, 0);
       $("#corner-lt").removeClass("hidden");
@@ -370,9 +380,9 @@ $(function () {
                           dataType: "json",
                           success: function (data) {
                             if (data.code == 200) {
-                              if($.cookie("token") != null) {
-                        	    $(window).attr('location', "gallery.jsp");
-                        	  }
+                              if ($.cookie("token") != null) {
+                                $(window).attr('location', "gallery.jsp");
+                              }
                             } else {
                               handleError(data);
                             }

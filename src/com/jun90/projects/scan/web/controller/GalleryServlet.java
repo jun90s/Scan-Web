@@ -79,6 +79,7 @@ public class GalleryServlet extends HttpServlet {
 				JsonObject imageJsonObject = new JsonObject();
 				imageJsonObject.addProperty("id", i.getId());
 				imageJsonObject.addProperty("name", i.getName());
+				imageJsonObject.addProperty("created", DatabaseUtils.getDateFormat().format(i.getCreated()));
 				imageJsonObject.addProperty("image", "data:image/jpeg;base64," + Base64.encodeBase64String(i.getThumbnail()));
 				imageArray.add(imageJsonObject);
 			}
